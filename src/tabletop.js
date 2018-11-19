@@ -360,9 +360,10 @@
       }
 
       this.sheetsToLoad = toLoad.length;
+      var that = this;
       for(i = 0, ilen = toLoad.length; i < ilen; i++) {
         setTimeout( function(){ 
-            this.requestData(toLoad[i], this.loadSheet);
+            that.requestData(toLoad[i], this.loadSheet);
         }, i * 150)
       }
     },
