@@ -452,6 +452,7 @@
     var i, j, ilen, jlen;
     this.columnNames = [];
     this.column_names = this.columnNames; // jshint ignore:line
+    console.log('options.data', options.data);
     this.name = options.data.feed.title.$t;
     this.tabletop = options.tabletop;
     this.elements = [];
