@@ -329,7 +329,7 @@
     */
     loadSheets: function(data) {
       var i, ilen;
-      var toLoad = [];
+      this.toLoad = [];
       this.googleSheetName = data.feed.title.$t;
       this.foundSheetNames = [];
 
@@ -355,15 +355,15 @@
           if (this.reverse) {
             jsonPath += '&reverse=true';
           }
-          toLoad.push(jsonPath);
+          this.toLoad.push(jsonPath);
         }
       }
 
-      this.sheetsToLoad = toLoad.length;
+      this.sheetsToLoad = this.toLoad.length;
       var that = this;
-      for(i = 0, ilen = toLoad.length; i < ilen; i++) {
+      for(i = 0, ilen = this.toLoad.length; i < ilen; i++) {
         setTimeout( function(){ 
-            that.requestData(toLoad[i], this.loadSheet);
+            that.requestData(that.toLoad[i], that.loadSheet);
         }, i * 150)
       }
     },
