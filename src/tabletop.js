@@ -405,7 +405,7 @@
     loadSheet: function(data) {
       var that = this;
       
-      if (data) {
+      if (data && JSON.parse(data)) {
           new Tabletop.Model({
             data: data,
             parseNumbers: this.parseNumbers,
@@ -417,7 +417,7 @@
             }
           });
       } else {
-        console.error('data not defined - google sheets error');
+        console.error('data not defined properly - google sheets error');
       }
     },
 
