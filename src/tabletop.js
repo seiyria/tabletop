@@ -361,7 +361,9 @@
 
       this.sheetsToLoad = toLoad.length;
       for(i = 0, ilen = toLoad.length; i < ilen; i++) {
-        this.requestData(toLoad[i], this.loadSheet);
+        setTimeout( function(){ 
+            this.requestData(toLoad[i], this.loadSheet);
+        }, i * 150)
       }
     },
 
@@ -402,16 +404,21 @@
     */
     loadSheet: function(data) {
       var that = this;
-      new Tabletop.Model({
-        data: data,
-        parseNumbers: this.parseNumbers,
-        postProcess: this.postProcess,
-        tabletop: this,
-        prettyColumnNames: this.prettyColumnNames,
-        onReady: function() {
-          that.sheetReady(this);
-        }
-      });
+      
+      if (data) {
+          new Tabletop.Model({
+            data: data,
+            parseNumbers: this.parseNumbers,
+            postProcess: this.postProcess,
+            tabletop: this,
+            prettyColumnNames: this.prettyColumnNames,
+            onReady: function() {
+              that.sheetReady(this);
+            }
+          });
+      } else {
+        console.error('data not defined - google sheets error');
+      }
     },
 
     /*
