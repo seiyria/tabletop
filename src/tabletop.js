@@ -273,11 +273,11 @@
       this.log('Fetching', this.endpoint + path);
       request({url: this.endpoint + path, json: true}, function(err, resp, body) {
         if (err) {
-          this.toLoad.pop();
+          self.toLoad.pop();
           return console.error(err);
         }
         if (!(resp && resp.statusCode === 200)) {
-            this.toLoad.pop();
+            self.toLoad.pop();
             return console.error('statusCode:', resp && resp.statusCode);
         }
         callback.call(self, body);
