@@ -272,6 +272,9 @@
         if (err) {
           return console.error(err);
         }
+        if (!(resp && resp.statusCode === 200)) {
+            return console.error('statusCode:', resp && resp.statusCode);
+        }
         callback.call(self, body);
       });
     },
@@ -356,16 +359,11 @@
             jsonPath += '&reverse=true';
           }
           this.toLoad.push(jsonPath);
+          this.requestData(jsonPath, this.loadSheet);
         }
       }
 
       this.sheetsToLoad = this.toLoad.length;
-      var that = this;
-      for(i = 0, ilen = this.toLoad.length; i < ilen; i++) {
-        setTimeout( function(){ 
-            that.requestData(that.toLoad[i], that.loadSheet);
-        }, i * 150)
-      }
     },
 
     /*
@@ -406,7 +404,7 @@
     loadSheet: function(data) {
       var that = this;
       
-      if (data && JSON.parse(data)) {
+      if (data) {
           new Tabletop.Model({
             data: data,
             parseNumbers: this.parseNumbers,
@@ -453,7 +451,6 @@
     var i, j, ilen, jlen;
     this.columnNames = [];
     this.column_names = this.columnNames; // jshint ignore:line
-    console.log('options.data', options.data);
     this.name = options.data.feed.title.$t;
     this.tabletop = options.tabletop;
     this.elements = [];
