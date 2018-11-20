@@ -175,7 +175,6 @@
       if (path.match(/public\/values/)) {
         this.toLoad.push(path);
       }
-
       if (inNodeJS) {
         this.serverSideFetch(path, callback);
       } else {
@@ -274,14 +273,20 @@
       request({url: this.endpoint + path, json: true}, function(err, resp, body) {
         if (err) {
           self.toLoad.pop();
+          self.sheetsToLoad--;
           return console.error(err);
         }
         if (!(resp && resp.statusCode === 200)) {
             self.toLoad.pop();
+            self.sheetsToLoad--;
             return console.error('statusCode:', resp && resp.statusCode);
         }
         callback.call(self, body);
       });
+    },
+    
+    getRandomInt: function(max) {
+        return Math.floor(Math.random() * Math.floor(max));
     },
 
     /*
