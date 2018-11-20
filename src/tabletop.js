@@ -172,6 +172,9 @@
     */
     requestData: function(path, callback) {
       this.log('Requesting', path);
+      if (path.match(/public\/values/)) {
+        this.toLoad.push(path);
+      }
 
       if (inNodeJS) {
         this.serverSideFetch(path, callback);
@@ -358,7 +361,6 @@
           if (this.reverse) {
             jsonPath += '&reverse=true';
           }
-          this.toLoad.push(jsonPath);
           this.requestData(jsonPath, this.loadSheet);
         }
       }
