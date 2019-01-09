@@ -1,14 +1,9 @@
 (function() {
   'use strict';
 
-  var inNodeJS = typeof process !== 'undefined' && !process.browser;
-
   var request = function requestNotProvided() {
     throw new Error("The 'request' module is only available while running in Node.");
   };
-  if(inNodeJS) { // This will get stripped out by Uglify, and Webpack will not include it
-    request = require('request');
-  }
 
   var supportsCORS = false;
   var inLegacyIE = false;
