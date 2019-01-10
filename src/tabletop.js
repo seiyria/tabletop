@@ -5,6 +5,7 @@
     throw new Error("The 'request' module is only available while running in Node.");
   };
 
+  var inNodeJS = false;
   var supportsCORS = false;
   var inLegacyIE = false;
   try {
